@@ -1,0 +1,13 @@
+{% extends "controlling/base.html" %}
+{% block content%}
+
+<div>
+  <h1>Nowy MPK</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Dodaj MPK</button>
+  </form>
+</div>
+
+{% endblock content %}

@@ -1,0 +1,52 @@
+{% extends "controlling/base.html" %}
+{% block content%}
+
+<form action="" method="post">
+    <table>
+        <thead>
+            <tr>
+                <th>L.p.</th>
+                <th>Data</th>
+                <th>Dzień tyg.</th>
+                
+                {% for mpk in mpks %}
+                <th>{{ mpk }}</th>
+                {% endfor %}
+
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for items in table %}
+            <tr>
+                {% for item in items %}
+
+                {% if forloop.counter < 4 %}
+                <th>{{ item }}</th>
+                {% else %}
+                {% csrf_token %}
+                <th><input type="number" step="0.5" min="0" max="100" value="{{ item.value }}" name="{{ item.name }}"></th>
+                {% endif %}
+                
+                {% endfor %}
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <button type="submit">Zapisz</button>
+</form>
+
+
+<form method="post">
+    {% csrf_token %}
+    <select name="mpkadd">
+        <option selected value></option>
+        {% for mpk in allmpks %}
+        <option>{{ mpk.number }}</option>
+        {% endfor %}
+    </select>
+    <button type="submit">Dodaj</button>
+</form>
+
+<!---->
+{% endblock content %}

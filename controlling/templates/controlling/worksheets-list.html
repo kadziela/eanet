@@ -1,0 +1,24 @@
+{% extends "controlling/base.html" %}
+{% block content%}
+
+<table>
+  <thead>
+      <tr>
+          <th>L.p.</th>
+          <th>Miesiąc</th>
+
+      </tr>
+  </thead>
+  <tbody>
+      {% for worksheet in worksheets %}
+      <tr>
+
+        <th>{{ worksheet.id }}</th>
+        <th><a href="{% url 'worksheet_edit' worksheet.id  %}">{{ worksheet }}</a></th>
+
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}

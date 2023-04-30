@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EA net</title>
+
+  </head>
+  <body>
+    <h1>EA net</h1>
+    <nav>
+
+        {% if user.is_authenticated %}
+
+        <a href="/administration-panel">Panel Administracyjny</a>
+        
+        <a href="/worksheets-list">Karty Godzin</a>
+        <a href="">Grafik</a>
+        <a href="/employee-list">Pracownicy</a>
+        <a href="/mpk-list">MPK</a>
+
+
+        {% else %}
+
+
+        {% endif %}
+
+        <div>
+            {% if user.is_authenticated %}
+            
+              <a href="/logout">Logout</a>
+              <p>Welcome, {{user.username}}</p>
+
+            {% else %}
+
+              <a href="/login">Login</a>
+      
+            {% endif %}
+        </div>
+
+    </nav>
+
+    {% block content%}{% endblock content %}
+
+  </body>
+</html>

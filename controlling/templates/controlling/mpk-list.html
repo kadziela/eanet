@@ -1,0 +1,29 @@
+{% extends "controlling/base.html" %}
+{% block content%}
+
+<table>
+  <thead>
+      <tr>
+          <th>L.p.</th>
+          <th>Nr MPK</th>
+          <th>Opis</th>
+          <th>Data Utworzenia</th>
+          <th>Data aktualizacji</th>
+          <th>Status</th>
+      </tr>
+  </thead>
+  <tbody>
+      {% for mpk in mpks %}
+      <tr>
+          <th>{{ mpk.id }}</th>
+          <th>{{ mpk.number }}</th>
+          <th>{{ mpk.description }}</th>
+          <th>{{ mpk.created }}</th>
+          <th>{{ mpk.updated }}</th>
+          <th>{{ mpk.status }}</th>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}

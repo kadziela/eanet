@@ -1,0 +1,13 @@
+{% extends "controlling/base.html" %}
+{% block content%}
+
+<div>
+  <h1>Nowy Pracownik</h1>
+  <form method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit">Dodaj Pracownika</button>
+  </form>
+</div>
+
+{% endblock content %}

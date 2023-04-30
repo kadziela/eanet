@@ -1,0 +1,25 @@
+{% extends "controlling/base.html" %}
+{% block content%}
+
+<table>
+  <thead>
+      <tr>
+          <th>L.p.</th>
+          <th>Imię</th>
+          <th>Nazwisko</th>
+          <th>Status Zatrudnienia</th>
+      </tr>
+  </thead>
+  <tbody>
+      {% for employee in employees %}
+      <tr>
+          <th>{{ employee.id }}</th>
+          <th>{{ employee.firstName }}</th>
+          <th>{{ employee.lastName }}</th>
+          <th>{{ employee.workStatus }}</th>
+      </tr>
+      {% endfor %}
+  </tbody>
+</table>
+
+{% endblock content %}
