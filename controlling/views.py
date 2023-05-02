@@ -1,7 +1,9 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.contrib import messages
 from django.contrib.auth import login, authenticate, logout
 from django.contrib.auth.forms import AuthenticationForm
+from django.http import HttpResponseBadRequest, HttpResponseRedirect
 from .forms import EmployeeForm, MPKForm
 from .models import (
     Employee, MPK, EmployeeWorkSheet, MPKWorkSheet, HourOfWorkSheet
@@ -48,22 +50,22 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"You are now logged in as {username}.")
-                return redirect('home')
+                return HttpResponseRedirect(reverse('home'))
             else:
-                messages.error(request, "Invalid username or password.")
+                return HttpResponseBadRequest("Invalid username or password.")
         else:
-            messages.error(request, "Invalid username or password.")
-    form = AuthenticationForm()
-    return render(request, 'controlling/login.html', {
-        'login_form': form
-    })
+            return HttpResponseBadRequest("Invalid username or password.")
+    else:
+        form = AuthenticationForm()
+        return render(request, 'controlling/login.html', {
+            'login_form': form
+        })
 
 
 def logout_request(request):
     logout(request)
     messages.info(request, "You have successfully logged out.")
-    return redirect('home')
+    return HttpResponseRedirect(reverse('home'))
 
 
 def administration_panel(request):
@@ -110,18 +112,6 @@ def worksheets_list(request):
     worksheets = EmployeeWorkSheet.objects.filter(employee=employee)
     return render(request, 'controlling/worksheets-list.html',
                   {'worksheets': worksheets})
-
-
-def mpk_in_work_sheet_add(request):
-    form = HourOfWorkSheet()
-    if request.method == 'POST':
-        form = MPKForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('administration-panel')
-    return render(request, 'controlling/mpk-add.html', {
-        'form': form
-    })
 
 
 def worksheet_edit(request, pk):

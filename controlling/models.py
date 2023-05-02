@@ -48,8 +48,8 @@ class Employee(models.Model):
     workStart = models.DateField(default=timezone.now)
     workEnd = models.DateField(blank=True, null=True)
 
-    def save(self):
-        super(Employee, self).save()
+    def save(self, *args, **kwargs):
+        super(Employee, self).save(*args, **kwargs)
         employeeWorkSheet = EmployeeWorkSheet(
             employee=self, month=date(self.workStart.year,
                                       self.workStart.month, 1))
